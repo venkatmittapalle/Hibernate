@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from ProductServiceService WSDL service -->
+
+  <service name="ProductService" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://venki.com"/>
+      <parameter name="wsdlServiceElement" value="ProductServiceService"/>
+      <parameter name="schemaQualified" value="http://venki.com"/>
+      <parameter name="wsdlServicePort" value="ProductService"/>
+      <parameter name="className" value="com.venki.ProductService"/>
+      <parameter name="wsdlPortType" value="ProductService"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://venki.com" xmlns:retNS="http://venki.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="addProduct" qname="operNS:addProduct" returnQName="retNS:addProductReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://venki.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:category" type="tns:string"/>
+        <parameter xmlns:pns="http://venki.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:product" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://venki.com" xmlns:retNS="http://venki.com" xmlns:rtns="http://venki.com" xmlns:tns="http://venki.com" name="getProductCatagories" qname="operNS:getProductCatagories" returnQName="retNS:getProductCatagoriesReturn" returnType="rtns:ArrayOf_xsd_anyType" returnItemQName="tns:item" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://venki.com" xmlns:retNS="http://venki.com" xmlns:rtns="http://venki.com" xmlns:tns="http://venki.com" name="getProducts" qname="operNS:getProducts" returnQName="retNS:getProductsReturn" returnType="rtns:ArrayOf_xsd_anyType" returnItemQName="tns:item" soapAction="">
+        <parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" xmlns:pns="http://venki.com" qname="pns:category" type="tns:string"/>
+      </operation>
+      <parameter name="allowedMethods" value="addProduct getProductCatagories getProducts"/>
+
+      <typeMapping xmlns:ns="http://venki.com" qname="ns:&gt;addProduct" type="java:com.venki.AddProduct" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://venki.com" qname="ns:&gt;getProducts" type="java:com.venki.GetProducts" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://venki.com" qname="ns:&gt;getProductCatagoriesResponse" type="java:com.venki.GetProductCatagoriesResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://venki.com" qname="ns:&gt;addProductResponse" type="java:com.venki.AddProductResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <arrayMapping xmlns:ns="http://venki.com" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:ArrayOf_xsd_anyType" type="java:java.lang.Object[]" innerType="cmp-ns:anyType" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://venki.com" qname="ns:&gt;getProductCatagories" type="java:com.venki.GetProductCatagories" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://venki.com" qname="ns:&gt;getProductsResponse" type="java:com.venki.GetProductsResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>
